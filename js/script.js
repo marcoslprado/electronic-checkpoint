@@ -2,6 +2,7 @@ const weekDay = document.getElementById("week-day");
 const currentDate = document.getElementById("date");
 const currentHour = document.getElementById("current-hour");
 
+// Imprime a Data e horário no HTML
 function updateContentHour() {
     currentDate.textContent = getCurrentDate();
     currentHour.textContent = getCurrentTime();
@@ -20,8 +21,9 @@ function getCurrentTime() {
 // Retorna a data atual no padrão dd/mm/aaaa
 function getCurrentDate() {
     const date = new Date();
-    let month = date.getMonth() + 1;
-    return date.getDate() + "/" + month + "/" + date.getFullYear();
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    return day + "/" + month + "/" + date.getFullYear();
 }
 
 // Retorna o dia da semana atual
@@ -34,7 +36,3 @@ function getWeekDay() {
 
 updateContentHour();
 setInterval(updateContentHour, 1000); // Faz algo ser executado a cada 1000 milisegundos, nesse caso a função de exibir a data/hora
-
-console.log(getCurrentTime());
-console.log(getCurrentDate());
-console.log(getWeekDay());
