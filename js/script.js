@@ -43,3 +43,5 @@ function getWeekDay() {
 
 updateContentHour();
 setInterval(updateContentHour, 1000); // Faz algo ser executado a cada 1000 milisegundos, nesse caso a função de exibir a data/hora
+
+//Ver dialog(HTML)
