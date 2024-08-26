@@ -1,6 +1,13 @@
 const weekDay = document.getElementById("week-day");
 const currentDate = document.getElementById("date");
 const currentHour = document.getElementById("current-hour");
+const registerCheckpointButton = document.getElementById("register-checkpoint-button");
+
+registerCheckpointButton.addEventListener("click", register);
+
+function register() {
+    alert("Register Checkpoint!");
+}
 
 // Imprime a Data e horário no HTML
 function updateContentHour() {
