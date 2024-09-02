@@ -5,8 +5,15 @@ const registerCheckpointButton = document.getElementById("register-checkpoint-bu
 
 registerCheckpointButton.addEventListener("click", register);
 
+const dialogCheckpoint = document.getElementById("dialog-checkpoint");
+
+const closeButton = document.getElementById("close-button")
+closeButton.addEventListener("click", () => {
+    dialogCheckpoint.close();
+})
+
 function register() {
-    alert("Register Checkpoint!");
+    dialogCheckpoint.showModal();
 }
 
 // Imprime a Data e horário no HTML
