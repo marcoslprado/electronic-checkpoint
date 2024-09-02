@@ -1,3 +1,9 @@
+navigator.geolocation.getCurrentPosition((position)=> {
+    console.log(position);
+    console.log(position.coords.latitude);
+    console.log(position.coords.longitude);
+});
+
 const weekDay = document.getElementById("week-day");
 const currentDate = document.getElementById("date");
 const currentHour = document.getElementById("current-hour");
@@ -7,9 +13,22 @@ registerCheckpointButton.addEventListener("click", register);
 
 const dialogCheckpoint = document.getElementById("dialog-checkpoint");
 
-const closeButton = document.getElementById("close-button")
+const closeButton = document.getElementById("dialog-close")
 closeButton.addEventListener("click", () => {
     dialogCheckpoint.close();
+})
+
+const dialogDate = document.getElementById("dialog-date");
+dialogDate.textContent = getCurrentDate();
+
+const dialogHour = document.getElementById("dialog-hour");
+dialogHour.textContent = getCurrentTime(); 
+
+const btnDialogIn = document.getElementById("btn-dialog-in");
+btnDialogIn.addEventListener("click", () => {
+    // recuperar informações
+    // data, hora, localização (lat,long), tipo: entrada
+    // salvar essas informações num objeto Javascript
 })
 
 function register() {
