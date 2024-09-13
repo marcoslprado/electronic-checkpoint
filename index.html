@@ -17,11 +17,18 @@
     <dialog id="dialog-checkpoint">
         <p id="dialog-date">Date</p>
         <p id="dialog-hour">Hour</p>
-        <button id="btn-dialog-in">In</button>
-        <button id="btn-dialog-out">Out</button>
+        <select name="checkpoint-types" id="checkpoint-types">
+            <option value="in">In</option>
+            <option value="break">Break</option>
+            <option value="break-return">Break Return</option>
+            <option value="out">Out</option>
+        </select>
+        <button id="btn-dialog-register-checkpoint">Register Checkpoint</button>
         <button id="dialog-close">X</button>
     </dialog>
-    
+    <!-- TO-DO: -->
+    <!-- criar histórico dos últimos n registros-->
+    <!-- criar footer para alerta -->
     <script src="js/script.js"></script>
 </body>
 </html>
