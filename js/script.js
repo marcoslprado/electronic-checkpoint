@@ -1,11 +1,14 @@
 // TO-DO:
 // Organizar código-fonte,
 
-
-const weekDay = document.getElementById("week-day");
-const currentDate = document.getElementById("date");
-const currentHour = document.getElementById("current-hour");
-
+function printCurrentHour () {
+    const weekDay = document.getElementById("week-day");
+    const currentDate = document.getElementById("date");
+    const currentHour = document.getElementById("current-hour");
+    weekDay.textContent = getWeekDay();
+    currentDate.textContent = getCurrentDate();
+    currentHour.textContent = getCurrentTime();
+}
 
 const registerCheckpointButton = document.getElementById("register-checkpoint-button");
 registerCheckpointButton.addEventListener("click", register);
@@ -16,8 +19,6 @@ const closeButton = document.getElementById("dialog-close");
 closeButton.addEventListener("click", () => {
     dialogCheckpoint.close();
 })
-
-let registerLocalStorage = getRegisterLocalStorage();
 
 const dialogDate = document.getElementById("dialog-date");
 const dialogHour = document.getElementById("dialog-hour");
@@ -31,8 +32,8 @@ function getCurrentPosition() {
     });
 }
 
-const btnDialogIn = document.getElementById("btn-dialog-register-checkpoint");
-btnDialogIn.addEventListener("click", () => {
+const btnDialogRegister = document.getElementById("btn-dialog-register-checkpoint");
+btnDialogRegister.addEventListener("click", () => {
     let typeRegister = document.getElementById("checkpoint-types");
 
     let checkpoint = {
@@ -47,19 +48,32 @@ btnDialogIn.addEventListener("click", () => {
 
     saveRegisterLocalStorage(checkpoint);
 
-    localStorage.setItem("lastTypeRegister", typeRegister);
+    localStorage.setItem("lastRegisterType", typeRegister.value);
 
     dialogCheckpoint.close();
+
+    setRegisterType();
 
     // TO-DO:
     // Fechar o dialog ao bater ponto e apresentar, de alguma forma
     // uma confirmação (ou não) para o usuário
 })
 
+const selectRegisterType = document.getElementById("checkpoint-types");
+
+function setRegisterType() {
+    let lastType = localStorage.getItem("lastRegisterType");
+    if (lastTypeRegister == "in") {
+        selectRegisterType.value = "break";
+        return;    
+    }
+}
+
+let registersLocalStorage = getRegisterLocalStorage("register");
 
 function saveRegisterLocalStorage(register) {
-    registerLocalStorage.push(register); // Array
-    localStorage.setItem("register", JSON.stringify(registerLocalStorage));
+    registersLocalStorage.push(register); // Array
+    localStorage.setItem("register", JSON.stringify(registersLocalStorage));
 } 
 
 // Esta função deve retornar sempre um ARRAY, mesmo que seja vazio
@@ -119,9 +133,4 @@ function getWeekDay() {
     return daynames[day];
 }
 
-function printCurrentHour() {
-    currentHour.textContent = getCurrentHour();
-}
-
-printCurrentHour();
 setInterval(printCurrentHour, 1000); // Faz algo ser executado a cada 1000 milisegundos, nesse caso a função de exibir a data/hora
