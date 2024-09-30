@@ -34,21 +34,11 @@ function getCurrentPosition() {
 
 const btnDialogRegister = document.getElementById("btn-dialog-register-checkpoint");
 btnDialogRegister.addEventListener("click", () => {
-    let typeRegister = document.getElementById("checkpoint-types");
 
-    let checkpoint = {
-        "date": getCurrentDate(),
-        "hour": getCurrentTime(),
-        "location": getCurrentPosition(),
-        "id": 1,
-        "type": typeRegister
-    }
-
-    console.log(checkpoint);
-
-    saveRegisterLocalStorage(checkpoint);
-
-    localStorage.setItem("lastRegisterType", typeRegister.value);
+    let register = getObjectRegister(selectRegisterType.value);
+    saveRegisterLocalStorage(register);
+    
+    localStorage.setItem("lastRegister", JSON.stringify(register));
 
     const successAlert = document.getElementById("alert-checkpoint-registered");
     successAlert.classList.remove("hidden");
@@ -59,7 +49,7 @@ btnDialogRegister.addEventListener("click", () => {
         successAlert.classList.add("hidden");   
     }, 5000);
 
-    dialogCheckpoint.close();""
+    dialogCheckpoint.close();
 
     setRegisterType();
 
@@ -68,11 +58,22 @@ btnDialogRegister.addEventListener("click", () => {
     // uma confirmação (ou não) para o usuário
 })
 
+function getObjectRegister(registerType) {    
+    checkpoint = {
+        "date": getCurrentDate(),
+        "time": getCurrentTime(),
+        "location": getUserLocation(),
+        "id": 1,
+        "type": registerType
+    }
+    return checkpoint;
+}
+
 const selectRegisterType = document.getElementById("checkpoint-types");
 
 function setRegisterType() {
     let lastType = localStorage.getItem("lastRegisterType");
-    if (lastTypeRegister == "in") {
+    if (lastType == "in") {
         selectRegisterType.value = "break";
         return;    
     }
@@ -86,8 +87,8 @@ function saveRegisterLocalStorage(register) {
 } 
 
 // Esta função deve retornar sempre um ARRAY, mesmo que seja vazio
-function getRegisterLocalStorage() {
-    let registers = localStorage.getItem("register");
+function getRegisterLocalStorage(key) {
+    let registers = localStorage.getItem(key);
 
     if(!registers) {
         return [];
@@ -100,6 +101,17 @@ function getRegisterLocalStorage() {
 function register() {
     // TO-DO:
     // Atualizar hora a cada segundo e data 00:00:00
+    const dialogLastRegister = document.getElementById("dialog-last-register");
+    let lastRegister = JSON.parse(localStorage.getItem("lastRegister"));
+
+    if(lastRegister) {
+        let lastDateRegister = lastRegister.date;
+        let lastTimeRegister = lastRegister.time;
+        let lastRegisterType = lastRegister.type;
+
+        dialogLastRegister.textContent = "Último Registro: " + lastDateRegister + " | " + lastTimeRegister + " | " + lastRegisterType;
+    }
+
     dialogDate.textContent = "Date: " + getCurrentDate();
     dialogHour.textContent = "Hour: " + getCurrentTime();
     dialogCheckpoint.showModal();
