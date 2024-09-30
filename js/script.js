@@ -50,7 +50,16 @@ btnDialogRegister.addEventListener("click", () => {
 
     localStorage.setItem("lastRegisterType", typeRegister.value);
 
-    dialogCheckpoint.close();
+    const successAlert = document.getElementById("alert-checkpoint-registered");
+    successAlert.classList.remove("hidden");
+    successAlert.classList.add("show");
+
+    setTimeout(() => {
+        successAlert.classList.remove("show");
+        successAlert.classList.add("hidden");   
+    }, 5000);
+
+    dialogCheckpoint.close();""
 
     setRegisterType();
 

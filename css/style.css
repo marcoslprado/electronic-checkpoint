@@ -8,3 +8,20 @@
     right: 0;
     border: none;
 }
+
+.hidden {
+    opacity: 0;
+}
+
+.show {
+    opacity: 1;
+}
+
+#alert-checkpoint-registered {
+    border: 1px solid black;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background-color: lightgreen;
+    padding: 10px;
+}
